@@ -25,7 +25,7 @@ public:
 	float m_px;
 	float m_py;
 	CString m_title;
-	CString m_type;
+	CString m_type=_T("");
 	vector<CString> m_types;
 	virtual BOOL OnInitDialog();
 	DECLARE_MESSAGE_MAP()

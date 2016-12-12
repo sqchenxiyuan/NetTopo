@@ -60,7 +60,9 @@ BOOL CDAddEquipment::OnInitDialog()
 	for (int i = 0; i < m_types.size(); i++) {
 		c_type.AddString(m_types.at(i));
 	}
-	c_type.SetCurSel(0);
+	if (m_type == _T("")) {
+		c_type.SetCurSel(0);
+	}
 	return TRUE;  // return TRUE unless you set the focus to a control
 				  // 异常: OCX 属性页应返回 FALSE
 }

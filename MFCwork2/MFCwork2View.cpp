@@ -209,6 +209,7 @@ void CMFCwork2View::OnNMDblclkTree1(NMHDR *pNMHDR, LRESULT *pResult)
 
 	CDAddEquipment d(m_NetTopo->getTypes());
 	CNetElement* element = m_NetTopo->getElemnetById(id);
+	d.m_type = element->m_type;
 	d.m_title = element->m_title;
 	d.m_path = element->m_imgpath;
 	d.m_px = element->m_centerx;
@@ -219,11 +220,13 @@ void CMFCwork2View::OnNMDblclkTree1(NMHDR *pNMHDR, LRESULT *pResult)
 	if (IDOK == d.DoModal())
 	{
 		element->m_title = d.m_title;
+		element->m_type = d.m_type;
 		element->m_imgpath = d.m_path;
 		element->m_centerx = d.m_px;
 		element->m_centery = d.m_py;
 		element->m_imgw = element->m_imgw;
 		element->m_imgh = d.m_imgw;
+		m_NetTopo->checkNewType(d.m_type);
 		setTree();
 		drawNet();
 	}

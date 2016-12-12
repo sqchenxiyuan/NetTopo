@@ -20,6 +20,7 @@ public:
 	bool addLineById(int id1,int id2,int type=0);
 	bool delElemnetById(int id);
 	void selcNodeById(int id);
+	void checkNewType(CString newtype);
 private:
 	CPoint m_startPoint;
 	CPoint m_endPoint;
@@ -30,6 +31,4 @@ private:
 	vector<CNetElement*> m_linklist;
 	vector<CNetLine*> m_links;
 	vector<CString> m_types;
-
-	void checkNewType(CString newtype);
 };
