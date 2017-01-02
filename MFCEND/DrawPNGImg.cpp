@@ -41,7 +41,7 @@ void std::drawPNG(CString path, CDC* pDC, CRect rect) {
 	else if (drawprop < imgprop) {
 		h = h / imgprop*drawprop;
 	}
-	Image->Draw(pDC->m_hDC, rect.left, rect.top, w, h, 0, 0, imgw, imgh);
+	Image->Draw(pDC->m_hDC, rect.CenterPoint().x-w/2, rect.CenterPoint().y-h/2, w, h, 0, 0, imgw, imgh);
 }
 
 CImage* getPNGImg(CString path) {

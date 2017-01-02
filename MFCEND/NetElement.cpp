@@ -62,15 +62,26 @@ void CNetElement::Draw(CDC * pDC, CRect * rect)
 		CBrush* oldb= pDC->SelectObject(&newb);
 		pDC->FillRect(imgrect,&newb);
 		pDC->SelectObject(&oldb);
+
+		CRect imgrect1(CPoint(sx-3, sy-3), CPoint(sx + 3, sy + 3));
+		pDC->Rectangle(imgrect1);
+
+		CRect imgrect2(CPoint(sx - 3, ey - 3), CPoint(sx + 3, ey + 3));
+		pDC->Rectangle(imgrect2);
+
+		CRect imgrect3(CPoint(ex - 3, sy - 3), CPoint(ex + 3, sy + 3));
+		pDC->Rectangle(imgrect3);
+
+		CRect imgrect4(CPoint(ex - 3, ey - 3), CPoint(ex + 3, ey + 3));
+		pDC->Rectangle(imgrect4);
 	}
 	//drawPNG(m_imgpath, pDC, cx, cy, m_imgw, m_imgh);
 	drawPNG(m_imgpath, pDC, imgrect);
 
 	if (m_title != CString(_T(""))) {
-		pDC->DrawText(m_title, CRect(cx - 500, cy + m_imgh / 2, cx + 500, cy + m_imgh / 2 + 20), DT_BOTTOM | DT_CENTER | DT_TOP);
+		pDC->SetTextAlign(TA_CENTER| TA_BASELINE);//设置文本对齐方式 
+		pDC->TextOut(cx, ey+15, m_title);
 	}
-
-
 }
 
 
@@ -118,10 +129,30 @@ bool CNetElement::down(CPoint point,CRect rect)
 
 	CRect imgrect(CPoint(sx, sy), CPoint(ex, ey));
 
+
+	m_resize = 0;
+	if (m_selected) {
+		m_oldimgw=m_imgw;
+		m_oldimgh=m_imgh;
+		if (abs(point.x - sx) < 4 && abs(point.y - sy) < 4) {
+			m_resize = 1;
+		}
+		if (abs(point.x - ex) < 4 && abs(point.y - sy) < 4) {
+			m_resize = 2;
+		}
+		if (abs(point.x - ex) < 4 && abs(point.y - ey) < 4) {
+			m_resize = 3;
+		}
+		if (abs(point.x - sx) < 4 && abs(point.y - ey) < 4) {
+			m_resize = 4;
+		}
+	}
+
 	if (point.x >= imgrect.left&&
 		point.x <= imgrect.right&&
 		point.y >= imgrect.top&&
-		point.y <= imgrect.bottom
+		point.y <= imgrect.bottom||
+		m_resize != 0
 		) {
 		m_selected = true;
 		m_olddownpoint = point;
@@ -148,10 +179,36 @@ bool CNetElement::move(CPoint point, CRect rect)
 		int movex = point.x - m_olddownpoint.x;
 		int movey = point.y - m_olddownpoint.y;
 
-		cx = cx + movex;
-		cy = cy + movey;
-		m_centerx = cx / w;
-		m_centery = cy / h;
+		if (m_resize == 0) {
+			cx = cx + movex;
+			cy = cy + movey;
+			m_centerx = cx / w;
+			m_centery = cy / h;
+
+			if (m_centerx < 0)m_centerx = 0;
+			if (m_centery < 0)m_centery = 0;
+			if (m_centerx > 1)m_centerx = 1;
+			if (m_centery > 1)m_centery = 1;
+		}
+		else {
+			switch (m_resize)
+			{
+			case 1:	m_imgw = m_oldimgw - movex;
+					m_imgh = m_oldimgh - movey;
+					break;
+			case 2:	m_imgw = m_oldimgw + movex;
+					m_imgh = m_oldimgh - movey;
+					break;
+			case 3:	m_imgw = m_oldimgw + movex;
+					m_imgh = m_oldimgh + movey;
+					break;
+			case 4:	m_imgw = m_oldimgw - movex;
+					m_imgh = m_oldimgh + movey;
+					break;
+			}
+			if (m_imgw < 10)m_imgw = 10;
+			if (m_imgh < 10)m_imgh = 10;
+		}
 
 		return true;
 	}
@@ -170,4 +227,9 @@ bool CNetElement::up(CPoint point, CRect rect)
 	else {
 		return false;
 	}
+}
+
+void CNetElement::out()
+{
+	m_olddownpoint = CPoint(-1, -1);
 }

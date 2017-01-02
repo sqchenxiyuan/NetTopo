@@ -16,6 +16,7 @@ public:
 	bool down(CPoint point, CRect rect);
 	bool move(CPoint point, CRect rect);
 	bool up(CPoint point, CRect rect);
+	void out();
 
 	CNetElement();
 	CNetElement(float cx,float cy);
@@ -29,5 +30,9 @@ private:
 	CPoint m_olddownpoint = CPoint(-1, -1);
 	float m_oldcenterx;
 	float m_oldcentery;
+
+	int m_resize = 0;
+	float m_oldimgw;
+	float m_oldimgh;
 };
 

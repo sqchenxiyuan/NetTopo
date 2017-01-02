@@ -35,6 +35,7 @@ public:
 	void down(CPoint point);
 	void move(CPoint point);
 	void up(CPoint point);
+	void out();
 
 
 	void InitTopoNet(CView * pview, CDC *pDc);

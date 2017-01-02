@@ -111,6 +111,9 @@ void CTopoNet::Draw()
 	MemDC.SelectObject(&MemBitmap);
 	MemDC.FillSolidRect(0,0,rect.Width(),rect.Height(), pDC->GetBkColor());
 	//////////////////////////////////////////////////////
+	CFont font;
+	font.CreatePointFont(100, _T("宋体"));
+	MemDC.SelectObject(font);
 
 	CNetLine * line;
 	POSITION pos = m_lineList.GetHeadPosition();
@@ -255,5 +258,16 @@ void CTopoNet::up(CPoint point)
 	{
 		element = (CNetElement *)m_elementList.GetNext(pos);//获得m_SpiritList中的对象
 		element->up(point, rect);
+	}
+}
+
+void CTopoNet::out()
+{
+	CNetElement* element;
+	POSITION pos = m_elementList.GetHeadPosition();
+	while (pos)
+	{
+		element = (CNetElement *)m_elementList.GetNext(pos);//获得m_SpiritList中的对象
+		element->out();
 	}
 }

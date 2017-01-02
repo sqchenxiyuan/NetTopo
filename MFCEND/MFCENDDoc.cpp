@@ -290,3 +290,8 @@ void CMFCENDDoc::mouseUp(CPoint point)
 {
 	m_toponet.up(point);
 }
+
+void CMFCENDDoc::mouseOut()
+{
+	m_toponet.out();
+}

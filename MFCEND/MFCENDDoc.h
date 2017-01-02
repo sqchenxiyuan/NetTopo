@@ -27,6 +27,7 @@ public:
 	void mouseDown(CPoint point);
 	void mouseMove(CPoint point);
 	void mouseUp(CPoint point);
+	void mouseOut();
 // ÖØÐ´
 public:
 	virtual BOOL OnNewDocument();
