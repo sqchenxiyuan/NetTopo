@@ -21,13 +21,16 @@ public:
 	void InitTreeData();
 	map<int, HTREEITEM> m_hash_type;
 	map<int, HTREEITEM> m_hash_element;
+	map<int, HTREEITEM> m_hash_line;
 // ²Ù×÷
 public:
 	void resetData();
-	void mouseDown(CPoint point);
+	bool mouseDown(CPoint point);
 	void mouseMove(CPoint point);
 	void mouseUp(CPoint point);
 	void mouseOut();
+
+	void showElementP(CNetElement* element);
 // ÖØÐ´
 public:
 	virtual BOOL OnNewDocument();
@@ -60,4 +63,6 @@ public:
 	virtual BOOL OnSaveDocument(LPCTSTR lpszPathName);
 	afx_msg void OnCreatelement();
 	afx_msg void OnCrateline();
+	afx_msg void OnDelelement();
+	afx_msg void OnDelline();
 };

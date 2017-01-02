@@ -84,6 +84,7 @@
 #define IDS_FIND_TAB                    302
 #define IDS_EXPLORER                    305
 #define IDS_EDIT_MENU                   306
+#define IDS_DELELEMENT                  307
 #define IDD_DELEMENTINFO                310
 #define IDD_DLINEINFO                   311
 #define ID_ETITLE                       1002
@@ -103,13 +104,18 @@
 #define ID_CRATELINE                    32776
 #define ID_32777                        32777
 #define ID_REFRASH                      32778
-#define MSG_RESET_DATA					32779
+#define MSG_RESET_DATA                  32779
+#define ID_32779                        32779
+#define ID_32780                        32780
+#define ID_DELELEMENT                   32781
+#define ID_DELLINE                      32782
+
 // Next default values for new objects
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        312
-#define _APS_NEXT_COMMAND_VALUE         32779
+#define _APS_NEXT_RESOURCE_VALUE        313
+#define _APS_NEXT_COMMAND_VALUE         32783
 #define _APS_NEXT_CONTROL_VALUE         1000
 #define _APS_NEXT_SYMED_VALUE           312
 #endif

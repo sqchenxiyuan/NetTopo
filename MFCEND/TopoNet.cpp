@@ -189,6 +189,39 @@ void CTopoNet::AddType(CNetType * Sp)
 	m_typeList.AddHead(Sp);
 }
 
+CNetElement* CTopoNet::RemoveElement()
+{
+	CNetElement* element;
+	POSITION pos = m_elementList.GetHeadPosition();
+	while (pos)
+	{
+		element = (CNetElement *)m_elementList.GetAt(pos);
+		if (element->m_selected) {
+			m_elementList.RemoveAt(pos);
+			return element;
+		}
+		m_elementList.GetNext(pos);
+	}
+	return NULL;
+}
+
+CNetLine * CTopoNet::RemoveLine(CNetElement* element)
+{
+	CNetLine * line;
+	POSITION pos = m_lineList.GetHeadPosition();
+	while (pos)
+	{
+		line=(CNetLine *)m_lineList.GetAt(pos);
+		if (line->m_e1 == element->m_id||
+			line->m_e2 == element->m_id) {
+			m_lineList.RemoveAt(pos);
+			return line;
+		}
+		m_lineList.GetNext(pos);
+	}
+	return NULL;
+}
+
 void CTopoNet::InitTopoNet(CView * pview, CDC * pDc)
 {
 	m_pView = pview;
@@ -218,8 +251,9 @@ void CTopoNet::Serialize(CArchive& ar)
 }
 
 
-void CTopoNet::down(CPoint point)
+bool CTopoNet::down(CPoint point)
 {
+	bool action = false;
 	CRect rect;
 	m_pView->GetWindowRect(&rect);
 
@@ -228,9 +262,11 @@ void CTopoNet::down(CPoint point)
 	while (pos)
 	{
 		element = (CNetElement *)m_elementList.GetNext(pos);//获得m_SpiritList中的对象
-		element->down(point, rect);
+		if (element->down(point, rect)) {
+			action = true;
+		}
 	}
-
+	return action;
 }
 
 void CTopoNet::move(CPoint point)

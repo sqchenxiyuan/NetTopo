@@ -112,7 +112,6 @@ void CMFCENDView::OnContextMenu(CWnd* /* pWnd */, CPoint point)
 #endif
 }
 
-
 // CMFCENDView ’Ô∂œ
 
 #ifdef _DEBUG

@@ -306,11 +306,10 @@ IDR_POPUP_EDIT MENU
 BEGIN
     POPUP "编辑"
     BEGIN
-        MENUITEM "剪切(&T)\tCtrl+X",              ID_EDIT_CUT
-        MENUITEM "复制(&C)\tCtrl+C",              ID_EDIT_COPY
-        MENUITEM "粘贴(&P)\tCtrl+V",              ID_EDIT_PASTE
         MENUITEM "新建设备",                        ID_CREATELEMENT
         MENUITEM "新建连接",                        ID_CRATELINE
+        MENUITEM "删除设备",                        ID_DELELEMENT
+        MENUITEM "删除连接",                        ID_DELLINE
     END
 END
 
@@ -687,6 +686,7 @@ STRINGTABLE
 BEGIN
     IDS_EXPLORER            "资源管理器"
     IDS_EDIT_MENU           "编辑"
+    IDS_DELELEMENT          "删除设备"
 END
 
 STRINGTABLE

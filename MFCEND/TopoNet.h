@@ -19,7 +19,6 @@ public:
 	CObList m_lineList;
 
 	CView * m_pView;
-	
 
 	CTopoNet();
 	virtual ~CTopoNet();
@@ -32,7 +31,10 @@ public:
 	void AddLine(CBase * Sp);
 	void AddType(CNetType * Sp);
 
-	void down(CPoint point);
+	CNetElement* RemoveElement();
+	CNetLine* RemoveLine(CNetElement* element);
+
+	bool down(CPoint point);
 	void move(CPoint point);
 	void up(CPoint point);
 	void out();

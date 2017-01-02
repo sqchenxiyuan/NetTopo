@@ -26,6 +26,8 @@ IMPLEMENT_DYNCREATE(CMFCENDDoc, CDocument)
 BEGIN_MESSAGE_MAP(CMFCENDDoc, CDocument)
 	ON_COMMAND(ID_CREATELEMENT, &CMFCENDDoc::OnCreatelement)
 	ON_COMMAND(ID_CRATELINE, &CMFCENDDoc::OnCrateline)
+	ON_COMMAND(ID_DELELEMENT, &CMFCENDDoc::OnDelelement)
+	ON_COMMAND(ID_DELLINE, &CMFCENDDoc::OnDelline)
 END_MESSAGE_MAP()
 
 
@@ -170,7 +172,6 @@ BOOL CMFCENDDoc::OnOpenDocument(LPCTSTR lpszPathName)
 BOOL CMFCENDDoc::OnSaveDocument(LPCTSTR lpszPathName)
 {
 	// TODO: 在此添加专用代码和/或调用基类
-
 	return CDocument::OnSaveDocument(lpszPathName);
 }
 
@@ -205,6 +206,7 @@ void CMFCENDDoc::InitTreeData()
 		m_hash_element[pobj->m_id] = item;
 	}
 
+	m_hash_line.clear();
 	pos = m_toponet.m_lineList.GetHeadPosition();
 	while (pos)
 	{
@@ -220,6 +222,8 @@ void CMFCENDDoc::InitTreeData()
 		id.Format(_T("%d"), pobj->m_e1);
 		item = m_elementTree->InsertItem(id, 0, 0, m_hash_element.find(pobj->m_e2)->second);
 		m_elementTree->SetItemData(item, (DWORD)pobj);
+
+		m_hash_line[pobj->m_id] = item;
 	}
 
 }
@@ -250,7 +254,6 @@ void CMFCENDDoc::OnCreatelement()
 	}
 }
 
-
 void CMFCENDDoc::OnCrateline()
 {
 	// TODO: 在此添加命令处理程序代码
@@ -276,9 +279,23 @@ void CMFCENDDoc::OnCrateline()
 	}
 }
 
-void CMFCENDDoc::mouseDown(CPoint point)
+bool CMFCENDDoc::mouseDown(CPoint point)
 {
-	m_toponet.down(point);
+	bool active = false;
+	if (m_toponet.down(point)) {
+
+		POSITION pos;
+		pos = m_toponet.m_elementList.GetHeadPosition();
+		while (pos)
+		{
+			CNetElement * element = (CNetElement *)m_toponet.m_elementList.GetNext(pos);
+			if (!active&&element->m_selected) {
+				showElementP(element);
+				active = true;
+			}
+		}
+	}
+	return active;
 }
 
 void CMFCENDDoc::mouseMove(CPoint point)
@@ -294,4 +311,33 @@ void CMFCENDDoc::mouseUp(CPoint point)
 void CMFCENDDoc::mouseOut()
 {
 	m_toponet.out();
+}
+
+void CMFCENDDoc::showElementP(CNetElement * element)
+{
+	((CMainFrame *)AfxGetMainWnd())->showPData((DWORD)element);
+}
+
+
+void CMFCENDDoc::OnDelelement()
+{
+	CNetElement * element = m_toponet.RemoveElement();
+	if (element != NULL) {
+		HTREEITEM item=m_hash_element.find(element->m_id)->second;
+		m_elementTree->DeleteItem(item);
+
+		CNetLine * line = NULL;
+		while (line = m_toponet.RemoveLine(element)) {
+			m_elementTree->DeleteItem(m_hash_line.find(line->m_id)->second);
+			delete line;
+		}
+		delete element;
+	}
+	// TODO: 在此添加命令处理程序代码
+}
+
+
+void CMFCENDDoc::OnDelline()
+{
+	// TODO: 在此添加命令处理程序代码
 }
