@@ -13,6 +13,9 @@ public:
 	CString m_title = _T("");
 
 	bool m_selected = false;
+	bool down(CPoint point, CRect rect);
+	bool move(CPoint point, CRect rect);
+	bool up(CPoint point, CRect rect);
 
 	CNetElement();
 	CNetElement(float cx,float cy);
@@ -22,5 +25,9 @@ public:
 	virtual void Draw(CDC * pDC, CRect * rect);
 	DECLARE_SERIAL(CNetElement)
 	virtual void Serialize(CArchive& ar);
+private:
+	CPoint m_olddownpoint = CPoint(-1, -1);
+	float m_oldcenterx;
+	float m_oldcentery;
 };
 

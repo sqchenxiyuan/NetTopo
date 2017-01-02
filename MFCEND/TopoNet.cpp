@@ -213,3 +213,47 @@ void CTopoNet::Serialize(CArchive& ar)
 		loadnet();
 	}
 }
+
+
+void CTopoNet::down(CPoint point)
+{
+	CRect rect;
+	m_pView->GetWindowRect(&rect);
+
+	CNetElement* element;
+	POSITION pos = m_elementList.GetHeadPosition();
+	while (pos)
+	{
+		element = (CNetElement *)m_elementList.GetNext(pos);//获得m_SpiritList中的对象
+		element->down(point, rect);
+	}
+
+}
+
+void CTopoNet::move(CPoint point)
+{
+	CRect rect;
+	m_pView->GetWindowRect(&rect);
+
+	CNetElement* element;
+	POSITION pos = m_elementList.GetHeadPosition();
+	while (pos)
+	{
+		element = (CNetElement *)m_elementList.GetNext(pos);//获得m_SpiritList中的对象
+		element->move(point, rect);
+	}
+}
+
+void CTopoNet::up(CPoint point)
+{
+	CRect rect;
+	m_pView->GetWindowRect(&rect);
+
+	CNetElement* element;
+	POSITION pos = m_elementList.GetHeadPosition();
+	while (pos)
+	{
+		element = (CNetElement *)m_elementList.GetNext(pos);//获得m_SpiritList中的对象
+		element->up(point, rect);
+	}
+}

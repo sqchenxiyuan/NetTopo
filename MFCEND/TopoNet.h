@@ -32,6 +32,11 @@ public:
 	void AddLine(CBase * Sp);
 	void AddType(CNetType * Sp);
 
+	void down(CPoint point);
+	void move(CPoint point);
+	void up(CPoint point);
+
+
 	void InitTopoNet(CView * pview, CDC *pDc);
 	DECLARE_SERIAL(CTopoNet) //宏声明，为了串行化对象，便于存储
 	virtual void Serialize(CArchive& ar);

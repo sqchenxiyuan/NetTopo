@@ -278,12 +278,15 @@ void CMFCENDDoc::OnCrateline()
 
 void CMFCENDDoc::mouseDown(CPoint point)
 {
+	m_toponet.down(point);
 }
 
 void CMFCENDDoc::mouseMove(CPoint point)
 {
+	m_toponet.move(point);
 }
 
 void CMFCENDDoc::mouseUp(CPoint point)
 {
+	m_toponet.up(point);
 }
