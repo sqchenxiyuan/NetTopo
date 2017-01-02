@@ -1,0 +1,256 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="源文件">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="头文件">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="资源文件">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="头文件\MFCEND">
+      <UniqueIdentifier>{c63f7af2-b1c2-485d-91d4-ef9ccb574f02}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\NetTopo">
+      <UniqueIdentifier>{989f4e86-50e5-454e-9912-849647b91458}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\MFCEND">
+      <UniqueIdentifier>{08b55cae-e1a1-43f9-aacb-3ebb1f5b520f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\NetTopo">
+      <UniqueIdentifier>{bc9f9c7c-be77-4fd6-bb2f-3338a005ec8f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\Views">
+      <UniqueIdentifier>{6ae96e49-7257-4ba3-b759-870b4a2e5e25}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\views">
+      <UniqueIdentifier>{38ce5207-9e4f-4752-b323-41d0dd6d5bcc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\Dialog">
+      <UniqueIdentifier>{e1fda354-e048-44a7-97ba-6f4c017da3ba}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\dialog">
+      <UniqueIdentifier>{2f32471b-f15b-4bff-bf43-283751fb2ece}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="ReadMe.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="stdafx.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="targetver.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="MainFrm.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="ChildFrm.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="FileView.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="ViewTree.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="OutputWnd.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="MFCEND.h">
+      <Filter>头文件\MFCEND</Filter>
+    </ClInclude>
+    <ClInclude Include="MFCENDDoc.h">
+      <Filter>头文件\MFCEND</Filter>
+    </ClInclude>
+    <ClInclude Include="MFCENDView.h">
+      <Filter>头文件\MFCEND</Filter>
+    </ClInclude>
+    <ClInclude Include="Base.h">
+      <Filter>头文件\NetTopo</Filter>
+    </ClInclude>
+    <ClInclude Include="NetElement.h">
+      <Filter>头文件\NetTopo</Filter>
+    </ClInclude>
+    <ClInclude Include="TopoNet.h">
+      <Filter>头文件\NetTopo</Filter>
+    </ClInclude>
+    <ClInclude Include="ClassView.h">
+      <Filter>头文件\Views</Filter>
+    </ClInclude>
+    <ClInclude Include="NetLine.h">
+      <Filter>头文件\NetTopo</Filter>
+    </ClInclude>
+    <ClInclude Include="DrawPNGImg.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="NetType.h">
+      <Filter>头文件\NetTopo</Filter>
+    </ClInclude>
+    <ClInclude Include="DElementInfo.h">
+      <Filter>头文件\Dialog</Filter>
+    </ClInclude>
+    <ClInclude Include="DLineInfo.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="PropertiesWnd.h">
+      <Filter>头文件\Views</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="MainFrm.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="ChildFrm.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="FileView.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="ViewTree.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="OutputWnd.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="MFCEND.cpp">
+      <Filter>源文件\MFCEND</Filter>
+    </ClCompile>
+    <ClCompile Include="MFCENDDoc.cpp">
+      <Filter>源文件\MFCEND</Filter>
+    </ClCompile>
+    <ClCompile Include="MFCENDView.cpp">
+      <Filter>源文件\MFCEND</Filter>
+    </ClCompile>
+    <ClCompile Include="TopoNet.cpp">
+      <Filter>源文件\NetTopo</Filter>
+    </ClCompile>
+    <ClCompile Include="Base.cpp">
+      <Filter>源文件\NetTopo</Filter>
+    </ClCompile>
+    <ClCompile Include="NetElement.cpp">
+      <Filter>源文件\NetTopo</Filter>
+    </ClCompile>
+    <ClCompile Include="NetLine.cpp">
+      <Filter>源文件\NetTopo</Filter>
+    </ClCompile>
+    <ClCompile Include="DrawPNGImg.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="NetType.cpp">
+      <Filter>源文件\NetTopo</Filter>
+    </ClCompile>
+    <ClCompile Include="ClassView.cpp">
+      <Filter>源文件\views</Filter>
+    </ClCompile>
+    <ClCompile Include="DElementInfo.cpp">
+      <Filter>源文件\dialog</Filter>
+    </ClCompile>
+    <ClCompile Include="DLineInfo.cpp">
+      <Filter>头文件</Filter>
+    </ClCompile>
+    <ClCompile Include="PropertiesWnd.cpp">
+      <Filter>源文件\views</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="MFCEND.reg" />
+    <None Include="res\MFCEND.rc2">
+      <Filter>资源文件</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="MFCEND.rc">
+      <Filter>资源文件</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="res\file_view.ico">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="res\file_view_hc.ico">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="res\class_view.ico">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="res\class_view_hc.ico">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="res\fileview.bmp">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="res\fileview_hc.bmp">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="res\classview.bmp">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="res\classview_hc.bmp">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="res\explorer.bmp">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="res\explorer_hc.bmp">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="res\sort.bmp">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="res\sort_hc.bmp">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="res\menuimages.bmp">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="res\menuimages_hc.bmp">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="res\output_wnd.ico">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="res\output_wnd_hc.ico">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="res\properties_wnd.ico">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="res\properties_wnd_hc.ico">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="res\properties.bmp">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="res\properties_hc.bmp">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="UserImages.bmp">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="res\MFCENDDoc.ico">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="res\MFCEND.ico">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="res\Toolbar.bmp">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="res\Toolbar256.bmp">
+      <Filter>资源文件</Filter>
+    </Image>
+  </ItemGroup>
+</Project>
