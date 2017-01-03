@@ -231,11 +231,13 @@ void CMFCENDDoc::InitTreeData()
 void CMFCENDDoc::OnCreatelement()
 {
 	// TODO: 在此添加命令处理程序代码
-	CDElementInfo dialog;
+	CDElementInfo dialog(m_toponet.getTypeList());
 	if (IDOK == dialog.DoModal())
 	{
+		int id_type = m_toponet.getTypeIdByName(dialog.m_type);
+
 		CNetElement * newelement = new CNetElement(
-			0,
+			id_type,
 			dialog.m_imgpath,
 			dialog.m_title,
 			dialog.m_imgx,
@@ -244,13 +246,7 @@ void CMFCENDDoc::OnCreatelement()
 			dialog.m_imgh);
 		m_toponet.AddElement(newelement);
 
-		CString id;
-		id.Format(_T("%d"), newelement->m_id);
-		HTREEITEM item;
-		item = m_elementTree->InsertItem(id + _T(" ") + newelement->m_title, 0, 0, m_hash_type.find(newelement->m_type)->second);
-		m_elementTree->SetItemData(item, (DWORD)newelement);
-
-		m_hash_element[newelement->m_id] = item;
+		InitTreeData();
 	}
 }
 
@@ -264,8 +260,6 @@ void CMFCENDDoc::OnCrateline()
 			dialog.m_e1,
 			dialog.m_e2);
 		m_toponet.AddLine(newline);
-
-
 
 		CString id;
 		HTREEITEM item;
@@ -281,7 +275,6 @@ void CMFCENDDoc::OnCrateline()
 
 bool CMFCENDDoc::mouseDown(CPoint point)
 {
-	bool active = false;
 	if (m_toponet.down(point)) {
 
 		POSITION pos;
@@ -289,13 +282,23 @@ bool CMFCENDDoc::mouseDown(CPoint point)
 		while (pos)
 		{
 			CNetElement * element = (CNetElement *)m_toponet.m_elementList.GetNext(pos);
-			if (!active&&element->m_selected) {
+			if (element->m_selected) {
 				showElementP(element);
-				active = true;
+				return true;
+			}
+		}
+
+		pos = m_toponet.m_lineList.GetHeadPosition();
+		while (pos)
+		{
+			CNetLine * line = (CNetLine *)m_toponet.m_lineList.GetNext(pos);
+			if (line->m_select) {
+				showLineP(line);
+				return true;
 			}
 		}
 	}
-	return active;
+	return false;
 }
 
 void CMFCENDDoc::mouseMove(CPoint point)
@@ -318,6 +321,11 @@ void CMFCENDDoc::showElementP(CNetElement * element)
 	((CMainFrame *)AfxGetMainWnd())->showPData((DWORD)element);
 }
 
+void CMFCENDDoc::showLineP(CNetLine * line)
+{
+	((CMainFrame *)AfxGetMainWnd())->showPData((DWORD)line);
+}
+
 
 void CMFCENDDoc::OnDelelement()
 {
@@ -333,6 +341,9 @@ void CMFCENDDoc::OnDelelement()
 		}
 		delete element;
 	}
+	else {
+		AfxGetMainWnd()->MessageBox(_T("请选中要删除的设备"));
+	}
 	// TODO: 在此添加命令处理程序代码
 }
 
@@ -345,5 +356,56 @@ void CMFCENDDoc::OnDelline()
 		m_elementTree->DeleteItem(item);
 		delete line;
 	}
+	else {
+		AfxGetMainWnd()->MessageBox(_T("请选中要删除的连接"));
+	}
 	// TODO: 在此添加命令处理程序代码
+}
+
+
+void CMFCENDDoc::changeData(DWORD data, CString dataname, CString datavalue)
+{
+	CObject* obj = (CObject*)data;
+	if (obj->IsKindOf(RUNTIME_CLASS(CNetElement))) {
+		if (dataname == "标题") {
+			((CNetElement*)obj)->m_title = datavalue;
+		}
+		else if (dataname == "图片路径") {
+			((CNetElement*)obj)->m_imgpath = datavalue;
+		}
+		else if (dataname == "设备类型") {
+			((CNetElement*)obj)->m_type = m_toponet.getTypeIdByName(datavalue);
+		}
+	}
+	else if (obj->IsKindOf(RUNTIME_CLASS(CNetLine))) {
+		if (dataname == "节点一") {
+			int id = _ttoi(datavalue);
+			CNetElement* element = m_toponet.GetElementById(id);
+			if (element !=NULL) {
+				((CNetLine*)obj)->m_e1 = id;
+				((CNetLine*)obj)->e1 = element;
+			}
+			else {
+				AfxGetMainWnd()->MessageBox(_T("错误的ID号!"));
+			}
+		}
+		else if (dataname == "节点二") {
+			int id = _ttoi(datavalue);
+			CNetElement* element = m_toponet.GetElementById(id);
+			if (element != NULL) {
+				((CNetLine*)obj)->m_e2 = id;
+				((CNetLine*)obj)->e2 = element;
+			}
+			else {
+				AfxGetMainWnd()->MessageBox(_T("错误的ID号!"));
+			}
+		}
+	}
+	else if (obj->IsKindOf(RUNTIME_CLASS(CNetType))) {
+		if (dataname == "类型名") {
+			((CNetType*)obj)->m_name = datavalue;
+		}
+	}
+
+	InitTreeData();
 }

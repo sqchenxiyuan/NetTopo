@@ -1,5 +1,6 @@
 #pragma once
 #include "afxwin.h"
+#include "NetType.h"
 
 
 // CDElementInfo 对话框
@@ -9,7 +10,7 @@ class CDElementInfo : public CDialog
 	DECLARE_DYNAMIC(CDElementInfo)
 
 public:
-	CDElementInfo(CWnd* pParent = NULL);   // 标准构造函数
+	CDElementInfo(vector<CNetType*> typelist,CWnd* pParent = NULL);   // 标准构造函数
 	virtual ~CDElementInfo();
 
 // 对话框数据
@@ -22,11 +23,15 @@ protected:
 
 	DECLARE_MESSAGE_MAP()
 public:
-	float m_imgh;
-	float m_imgw;
-	float m_imgx;
-	float m_imgy;
-	CString m_imgpath;
-	CString m_title;
+	float m_imgh=30;
+	float m_imgw=40;
+	float m_imgx=0.5;
+	float m_imgy=0.5;
+	CString m_imgpath= _T("src/Router.png");
+	CString m_title= _T("新建设备");
 	CComboBox m_ctype;
+
+	vector<CNetType*> m_typelist;
+	virtual BOOL OnInitDialog();
+	CString m_type;
 };

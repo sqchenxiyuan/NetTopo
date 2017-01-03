@@ -22,7 +22,7 @@ public:
 
 	bool m_select = false;
 	bool down(CPoint point, CRect rect);
-private:
+	void reset_select();
 	
 };
 

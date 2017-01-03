@@ -99,11 +99,11 @@
     <ClInclude Include="DElementInfo.h">
       <Filter>头文件\Dialog</Filter>
     </ClInclude>
-    <ClInclude Include="DLineInfo.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="PropertiesWnd.h">
       <Filter>头文件\Views</Filter>
+    </ClInclude>
+    <ClInclude Include="DLineInfo.h">
+      <Filter>头文件\Dialog</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -158,11 +158,11 @@
     <ClCompile Include="DElementInfo.cpp">
       <Filter>源文件\dialog</Filter>
     </ClCompile>
-    <ClCompile Include="DLineInfo.cpp">
-      <Filter>头文件</Filter>
-    </ClCompile>
     <ClCompile Include="PropertiesWnd.cpp">
       <Filter>源文件\views</Filter>
+    </ClCompile>
+    <ClCompile Include="DLineInfo.cpp">
+      <Filter>源文件\dialog</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

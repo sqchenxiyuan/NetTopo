@@ -31,6 +31,9 @@ public:
 	void AddLine(CBase * Sp);
 	void AddType(CNetType * Sp);
 
+	int getTypeIdByName(CString name);
+	vector<CNetType*> getTypeList();
+	CNetElement* GetElementById(int id);
 	CNetElement* RemoveElement();
 	CNetLine* RemoveLine();
 	CNetLine* RemoveLine(CNetElement* element);

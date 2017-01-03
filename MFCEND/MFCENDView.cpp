@@ -157,6 +157,7 @@ void CMFCENDView::OnInitialUpdate()
 {
 	CView::OnInitialUpdate();
 
+	((CMainFrame*) AfxGetMainWnd())->SetActiveView(this);
 	GetDocument()->m_toponet.InitTopoNet(this, this->GetDC());
 	// TODO: 在此添加专用代码和/或调用基类
 }

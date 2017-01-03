@@ -25,7 +25,7 @@ public:
 // Ьиад
 public:
 	void ShowTypeP(CNetType *type);
-	void ShowElementP(CNetElement* element);
+	void ShowElementP(CNetElement* element, vector<CNetType*> typelist);
 	void ShowLineP(CNetLine *line);
 	void SetVSDotNetLook(BOOL bSet)
 	{

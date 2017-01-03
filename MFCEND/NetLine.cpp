@@ -117,3 +117,8 @@ bool CNetLine::down(CPoint point, CRect rect)
 
 	return false;
 }
+
+void CNetLine::reset_select()
+{
+	m_select = false;
+}

@@ -164,88 +164,6 @@ void CPropertiesWnd::InitPropList()
 	m_wndPropList.EnableDescriptionArea();
 	m_wndPropList.SetVSDotNetLook();
 	m_wndPropList.MarkModifiedProperties();
-
-	
-
-	
-
-
-
-	CMFCPropertyGridProperty* pGroup1 = new CMFCPropertyGridProperty(_T("外观"));
-
-	pGroup1->AddSubItem(new CMFCPropertyGridProperty(_T("三维外观"), (_variant_t) false, _T("指定窗口的字体不使用粗体，并且控件将使用三维边框")));
-
-	CMFCPropertyGridProperty* pProp = new CMFCPropertyGridProperty(_T("边框"), _T("对话框外框"), _T("其中之一: “无”、“细”、“可调整大小”或“对话框外框”"));
-	pProp->AddOption(_T("无"));
-	pProp->AddOption(_T("细"));
-	pProp->AddOption(_T("可调整大小"));
-	pProp->AddOption(_T("对话框外框"));
-	pProp->AllowEdit(FALSE);
-
-	pGroup1->AddSubItem(pProp);
-	pGroup1->AddSubItem(new CMFCPropertyGridProperty(_T("标题"), (_variant_t) _T("关于"), _T("指定窗口标题栏中显示的文本")));
-
-	m_wndPropList.AddProperty(pGroup1);
-
-	CMFCPropertyGridProperty* pSize = new CMFCPropertyGridProperty(_T("窗口大小"), 0, TRUE);
-
-	pProp = new CMFCPropertyGridProperty(_T("高度"), (_variant_t) 250l, _T("指定窗口的高度"));
-	pProp->EnableSpinControl(TRUE, 50, 300);
-	pSize->AddSubItem(pProp);
-
-	pProp = new CMFCPropertyGridProperty( _T("宽度"), (_variant_t) 150l, _T("指定窗口的宽度"));
-	pProp->EnableSpinControl(TRUE, 50, 200);
-	pSize->AddSubItem(pProp);
-
-	m_wndPropList.AddProperty(pSize);
-
-	CMFCPropertyGridProperty* pGroup2 = new CMFCPropertyGridProperty(_T("字体"));
-
-	LOGFONT lf;
-	CFont* font = CFont::FromHandle((HFONT) GetStockObject(DEFAULT_GUI_FONT));
-	font->GetLogFont(&lf);
-
-	_tcscpy_s(lf.lfFaceName, _T("宋体, Arial"));
-
-	pGroup2->AddSubItem(new CMFCPropertyGridFontProperty(_T("字体"), lf, CF_EFFECTS | CF_SCREENFONTS, _T("指定窗口的默认字体")));
-	pGroup2->AddSubItem(new CMFCPropertyGridProperty(_T("使用系统字体"), (_variant_t) true, _T("指定窗口使用“MS Shell Dlg”字体")));
-
-	m_wndPropList.AddProperty(pGroup2);
-
-	CMFCPropertyGridProperty* pGroup3 = new CMFCPropertyGridProperty(_T("杂项"));
-	pProp = new CMFCPropertyGridProperty(_T("(名称)"), _T("应用程序"));
-	pProp->Enable(FALSE);
-	pGroup3->AddSubItem(pProp);
-
-	CMFCPropertyGridColorProperty* pColorProp = new CMFCPropertyGridColorProperty(_T("窗口颜色"), RGB(210, 192, 254), NULL, _T("指定默认的窗口颜色"));
-	pColorProp->EnableOtherButton(_T("其他..."));
-	pColorProp->EnableAutomaticButton(_T("默认"), ::GetSysColor(COLOR_3DFACE));
-	pGroup3->AddSubItem(pColorProp);
-
-	static const TCHAR szFilter[] = _T("图标文件(*.ico)|*.ico|所有文件(*.*)|*.*||");
-	pGroup3->AddSubItem(new CMFCPropertyGridFileProperty(_T("图标"), TRUE, _T(""), _T("ico"), 0, szFilter, _T("指定窗口图标")));
-
-	pGroup3->AddSubItem(new CMFCPropertyGridFileProperty(_T("文件夹"), _T("c:\\")));
-
-	m_wndPropList.AddProperty(pGroup3);
-
-	CMFCPropertyGridProperty* pGroup4 = new CMFCPropertyGridProperty(_T("层次结构"));
-
-	CMFCPropertyGridProperty* pGroup41 = new CMFCPropertyGridProperty(_T("第一个子级"));
-	pGroup4->AddSubItem(pGroup41);
-
-	CMFCPropertyGridProperty* pGroup411 = new CMFCPropertyGridProperty(_T("第二个子级"));
-	pGroup41->AddSubItem(pGroup411);
-
-	pGroup411->AddSubItem(new CMFCPropertyGridProperty(_T("项 1"), (_variant_t) _T("值 1"), _T("此为说明")));
-	pGroup411->AddSubItem(new CMFCPropertyGridProperty(_T("项 2"), (_variant_t) _T("值 2"), _T("此为说明")));
-	pGroup411->AddSubItem(new CMFCPropertyGridProperty(_T("项 3"), (_variant_t) _T("值 3"), _T("此为说明")));
-
-	pGroup4->Expand(FALSE);
-	m_wndPropList.AddProperty(pGroup4);
-
-
-	
 }
 
 void CPropertiesWnd::ShowTypeP(CNetType * type)
@@ -262,13 +180,12 @@ void CPropertiesWnd::ShowTypeP(CNetType * type)
 	//类型名
 	CMFCPropertyGridProperty* p_name = new CMFCPropertyGridProperty(_T("类型名"), type->m_name, _T("该设备的ID"));
 	m_wndPropList.AddProperty(p_name);
-	p_name->SetData((DWORD)&(type->m_name));
+	p_name->SetData((DWORD)type);
 }
 
-void CPropertiesWnd::ShowElementP(CNetElement* element)
+void CPropertiesWnd::ShowElementP(CNetElement* element, vector<CNetType*> typelist)
 {
 	m_wndPropList.RemoveAll();
-
 	//ID
 	CString id;
 	id.Format(_T("%d"), element->m_id);
@@ -278,14 +195,25 @@ void CPropertiesWnd::ShowElementP(CNetElement* element)
 
 	//标题
 	CMFCPropertyGridProperty* p_title = new CMFCPropertyGridProperty(_T("标题"), element->m_title, _T("该设备的ID"));
-	p_title->SetData((DWORD)&(element->m_title));
+	p_title->SetData((DWORD)element);
 	m_wndPropList.AddProperty(p_title);
+
 
 	//类型
 	CString type;
-	type.Format(_T("%d"), element->m_type);
+	int l = typelist.size();
+	for (int i = 0; i < l; i++) {
+		if (typelist.at(i)->m_id == element->m_type) {
+			type = typelist.at(i)->m_name;
+			break;
+		}
+	}
+
 	CMFCPropertyGridProperty* p_type = new CMFCPropertyGridProperty(_T("设备类型"), type, _T("该设备的ID"));
-	p_id->AllowEdit(false);
+	for (int i = 0; i < l; i++) {
+		p_type->AddOption(typelist.at(i)->m_name);
+	}
+	p_type->SetData((DWORD)element);
 	m_wndPropList.AddProperty(p_type);
 
 
@@ -299,7 +227,7 @@ void CPropertiesWnd::ShowElementP(CNetElement* element)
 	imgpath->AddOption(_T("src/computer.png"));
 	imgpath->AddOption(_T("src/mobile_phone.png"));
 	imgpath->AllowEdit(FALSE);
-	imgpath->SetData((DWORD)&(element->m_imgpath));
+	imgpath->SetData((DWORD)element);
 	m_wndPropList.AddProperty(imgpath);
 
 
@@ -352,10 +280,14 @@ void CPropertiesWnd::ShowLineP(CNetLine * line)
 	m_wndPropList.AddProperty(p_id);
 
 	//节点一
-	m_wndPropList.AddProperty(new CMFCPropertyGridProperty(_T("节点一"), (_variant_t)line->m_e1, _T("该设备的ID")));
+	CMFCPropertyGridProperty* point1 = new CMFCPropertyGridProperty(_T("节点一"), (_variant_t)line->m_e1, _T("该设备的ID"));
+	point1->SetData((DWORD)line);
+	m_wndPropList.AddProperty(point1);
 
 	//节点二
-	m_wndPropList.AddProperty(new CMFCPropertyGridProperty(_T("节点二"), (_variant_t)line->m_e2, _T("该设备的ID")));
+	CMFCPropertyGridProperty* point2 = new CMFCPropertyGridProperty(_T("节点二"), (_variant_t)line->m_e2, _T("该设备的ID"));
+	point1->SetData((DWORD)line);
+	m_wndPropList.AddProperty(point2);
 
 	//类型
 	m_wndPropList.AddProperty(new CMFCPropertyGridProperty(_T("类型"), (_variant_t)line->m_type, _T("该设备的ID")));
@@ -383,11 +315,12 @@ void CPropertiesWnd::OnSettingChange(UINT uFlags, LPCTSTR lpszSection)
 LRESULT CPropertiesWnd::OnPropertyChanged(WPARAM wParam, LPARAM lParam)
 {
 	CMFCPropertyGridProperty* pProp = reinterpret_cast<CMFCPropertyGridProperty*>(lParam);
-
+	
 	if (pProp->GetData()) {
-		CString * str=(CString *)pProp->GetData();
-		str->SetString((CString)pProp->GetValue());
-		//((CMainFrame *)AfxGetMainWnd())->reset();
+		CString name = pProp->GetName();
+		CString value = pProp->GetValue();
+		((CMFCENDDoc *)((CMainFrame *)AfxGetMainWnd())->GetActiveView()->GetDocument())
+			->changeData(pProp->GetData(), name,value);
 	}
 
 	//自定义的操作

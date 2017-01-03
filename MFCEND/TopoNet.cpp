@@ -189,6 +189,51 @@ void CTopoNet::AddType(CNetType * Sp)
 	m_typeList.AddHead(Sp);
 }
 
+int CTopoNet::getTypeIdByName(CString name)
+{
+	POSITION pos = m_typeList.GetHeadPosition();
+	CNetType* type;
+	while (pos)
+	{
+		type= (CNetType *)m_typeList.GetNext(pos);
+		if (type->m_name == name) {
+			return type->m_id;
+		}
+	}
+
+	type = new CNetType(name);
+	AddType(type);
+
+	return type->m_id;
+}
+
+vector<CNetType*> CTopoNet::getTypeList()
+{
+	vector<CNetType*> list;
+	POSITION pos = m_typeList.GetHeadPosition();
+	while (pos)
+	{
+		CNetType* type;
+		type = (CNetType *)m_typeList.GetNext(pos);
+		list.push_back(type);
+	}
+	return list;
+}
+
+CNetElement * CTopoNet::GetElementById(int id)
+{
+	CNetElement* element;
+	POSITION pos = m_elementList.GetHeadPosition();
+	while (pos)
+	{
+		element = (CNetElement *)m_elementList.GetNext(pos);
+		if (element->m_id==id) {
+			return element;
+		}
+	}
+	return NULL;
+}
+
 CNetElement* CTopoNet::RemoveElement()
 {
 	CNetElement* element;
@@ -283,16 +328,20 @@ bool CTopoNet::down(CPoint point)
 		}
 	}
 
-	if (!action) {
-		CNetLine * line;
-		pos = m_lineList.GetHeadPosition();
-		while (pos)
-		{
-			line = (CNetLine *)m_lineList.GetNext(pos);
-			line->down(point, rect);
+	
+	CNetLine * line;
+	pos = m_lineList.GetHeadPosition();
+	while (pos)
+	{
+		line = (CNetLine *)m_lineList.GetNext(pos);
+		if (line->down(point, rect)&& !action) {
+			action = true;
+		}
+		else {
+			line->reset_select();
 		}
 	}
-
+	
 	return action;
 }
 

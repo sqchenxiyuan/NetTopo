@@ -31,6 +31,9 @@ public:
 	void mouseOut();
 
 	void showElementP(CNetElement* element);
+	void showLineP(CNetLine* line);
+
+	void changeData(DWORD data, CString dataname, CString datavalue);
 // ÖØÐ´
 public:
 	virtual BOOL OnNewDocument();
