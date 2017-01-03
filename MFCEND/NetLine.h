@@ -19,5 +19,10 @@ public:
 	virtual void Draw(CDC * pDC, CRect * rect);
 	DECLARE_SERIAL(CNetLine)
 	virtual void Serialize(CArchive& ar);
+
+	bool m_select = false;
+	bool down(CPoint point, CRect rect);
+private:
+	
 };
 

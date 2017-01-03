@@ -205,6 +205,22 @@ CNetElement* CTopoNet::RemoveElement()
 	return NULL;
 }
 
+CNetLine * CTopoNet::RemoveLine()
+{
+	CNetLine * line;
+	POSITION pos = m_lineList.GetHeadPosition();
+	while (pos)
+	{
+		line = (CNetLine *)m_lineList.GetAt(pos);
+		if (line->m_select) {
+			m_lineList.RemoveAt(pos);
+			return line;
+		}
+		m_lineList.GetNext(pos);
+	}
+	return NULL;
+}
+
 CNetLine * CTopoNet::RemoveLine(CNetElement* element)
 {
 	CNetLine * line;
@@ -266,6 +282,17 @@ bool CTopoNet::down(CPoint point)
 			action = true;
 		}
 	}
+
+	if (!action) {
+		CNetLine * line;
+		pos = m_lineList.GetHeadPosition();
+		while (pos)
+		{
+			line = (CNetLine *)m_lineList.GetNext(pos);
+			line->down(point, rect);
+		}
+	}
+
 	return action;
 }
 

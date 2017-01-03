@@ -339,5 +339,11 @@ void CMFCENDDoc::OnDelelement()
 
 void CMFCENDDoc::OnDelline()
 {
+	CNetLine * line = m_toponet.RemoveLine();
+	if (line != NULL) {
+		HTREEITEM item = m_hash_line.find(line->m_id)->second;
+		m_elementTree->DeleteItem(item);
+		delete line;
+	}
 	// TODO: 在此添加命令处理程序代码
 }

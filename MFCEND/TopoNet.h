@@ -32,6 +32,7 @@ public:
 	void AddType(CNetType * Sp);
 
 	CNetElement* RemoveElement();
+	CNetLine* RemoveLine();
 	CNetLine* RemoveLine(CNetElement* element);
 
 	bool down(CPoint point);
