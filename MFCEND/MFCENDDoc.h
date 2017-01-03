@@ -68,4 +68,5 @@ public:
 	afx_msg void OnCrateline();
 	afx_msg void OnDelelement();
 	afx_msg void OnDelline();
+	virtual void OnCloseDocument();
 };

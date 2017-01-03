@@ -409,3 +409,10 @@ void CMFCENDDoc::changeData(DWORD data, CString dataname, CString datavalue)
 
 	InitTreeData();
 }
+
+void CMFCENDDoc::OnCloseDocument()
+{
+	// TODO: 在此添加专用代码和/或调用基类
+	((CMainFrame*)AfxGetMainWnd())->SetActiveView(NULL);
+	CDocument::OnCloseDocument();
+}

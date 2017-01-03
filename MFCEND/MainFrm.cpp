@@ -296,7 +296,7 @@ void CMainFrame::SetDockingWindowIcons(BOOL bHiColorIcons)
 #ifdef _DEBUG
 void CMainFrame::AssertValid() const
 {
-	CMDIFrameWndEx::AssertValid();
+	//CMDIFrameWndEx::AssertValid();
 }
 
 void CMainFrame::Dump(CDumpContext& dc) const
